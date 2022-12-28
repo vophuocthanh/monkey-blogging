@@ -12,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase-app/firebase-config";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 
@@ -72,9 +72,6 @@ const SighUpPage = () => {
       });
     }
   }, [errors]);
-  useEffect(() => {
-    document.title = "Register Page";
-  }, []);
   return (
     <AuthenticationPage>
       <form className="form" onSubmit={handleSubmit(handleSignUp)}>
@@ -117,9 +114,6 @@ const SighUpPage = () => {
             )}
           </Input>
         </Filed>
-        <div className="have-account">
-          You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>
-        </div>
         <Button
           type="submit"
           style={{

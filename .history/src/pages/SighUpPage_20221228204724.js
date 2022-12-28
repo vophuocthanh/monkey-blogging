@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import Input from "../components/input/Input";
 import { Label } from "../components/label";
 import { useForm } from "react-hook-form";
@@ -12,9 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase-app/firebase-config";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
-import AuthenticationPage from "./AuthenticationPage";
 
 // Làm validation cho form
 const schema = yup.object({
@@ -72,67 +72,65 @@ const SighUpPage = () => {
       });
     }
   }, [errors]);
-  useEffect(() => {
-    document.title = "Register Page";
-  }, []);
   return (
-    <AuthenticationPage>
-      <form className="form" onSubmit={handleSubmit(handleSignUp)}>
-        <Filed>
-          <Label htmlFor="fullname">Fullname</Label>
-          <Input
-            type="text"
-            name="fullname"
-            placeholder="Enter your fullname"
-            control={control}
-          />
-        </Filed>
-        <Filed>
-          <Label htmlFor="email">Email address</Label>
-          <Input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            control={control}
-          />
-        </Filed>
-        <Filed>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            type={togglePassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
+    <SignUpPageStyles>
+      <div className="container">
+        <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
+        <h1 className="heading">Monkey Blogging</h1>
+        <form className="form" onSubmit={handleSubmit(handleSignUp)}>
+          <Filed>
+            <Label htmlFor="fullname">Fullname</Label>
+            <Input
+              type="text"
+              name="fullname"
+              placeholder="Enter your fullname"
+              control={control}
+            />
+          </Filed>
+          <Filed>
+            <Label htmlFor="email">Email address</Label>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              control={control}
+            />
+          </Filed>
+          <Filed>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type={togglePassword ? "text" : "password"}
+              name="password"
+              placeholder="Enter your password"
+              control={control}
+            >
+              {!togglePassword ? (
+                <IconEyeClose
+                  onClick={() => setTogglePassword(true)}
+                ></IconEyeClose>
+              ) : (
+                togglePassword && (
+                  <IconEyeOpen
+                    onClick={() => setTogglePassword(false)}
+                  ></IconEyeOpen>
+                )
+              )}
+            </Input>
+          </Filed>
+          <Button
+            type="submit"
+            style={{
+              maxWidth: 300,
+              margin: "0 auto",
+            }}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
           >
-            {!togglePassword ? (
-              <IconEyeClose
-                onClick={() => setTogglePassword(true)}
-              ></IconEyeClose>
-            ) : (
-              togglePassword && (
-                <IconEyeOpen
-                  onClick={() => setTogglePassword(false)}
-                ></IconEyeOpen>
-              )
-            )}
-          </Input>
-        </Filed>
-        <div className="have-account">
-          You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>
-        </div>
-        <Button
-          type="submit"
-          style={{
-            maxWidth: 300,
-            margin: "0 auto",
-          }}
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
-          Sign Up
-        </Button>
-      </form>
-    </AuthenticationPage>
+            Sign Up
+          </Button>
+        </form>
+      </div>
+    </SignUpPageStyles>
   );
 };
 

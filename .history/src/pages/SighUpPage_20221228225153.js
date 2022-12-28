@@ -118,7 +118,7 @@ const SighUpPage = () => {
           </Input>
         </Filed>
         <div className="have-account">
-          You already have an account? <NavLink to={"/sign-in"}>Login</NavLink>
+          You already have an account? <NavLink to={"/sign-in"}></NavLink>
         </div>
         <Button
           type="submit"
