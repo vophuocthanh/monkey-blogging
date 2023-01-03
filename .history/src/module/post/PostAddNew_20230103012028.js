@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
 import styled from "styled-components";
@@ -14,18 +14,14 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-  deleteObject,
 } from "firebase/storage";
-import ImageUpload from "../../components/image/ImageUpload";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase-app/firebase-config";
 
 //  const storage = getStorage();
 
 const PostAddNewStyles = styled.div``;
 
 const PostAddNew = () => {
-  const { control, watch, setValue, handleSubmit, getValues } = useForm({
+  const { control, watch, setValue, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
@@ -42,10 +38,8 @@ const PostAddNew = () => {
     const cloneValues = { ...values };
     cloneValues.slug = slugify(values.slug || values.title);
     cloneValues.status = Number(values.status);
-    // console.log("addPostHandler ~ cloneValues", cloneValues);
+    console.log("addPostHandler ~ cloneValues", cloneValues);
   };
-  const [progress, setProgress] = useState(0);
-  const [image, setImage] = useState("");
   const handleUploadImage = (file) => {
     const storage = getStorage();
     const storageRef = ref(storage, "images/" + file.name);
@@ -53,10 +47,9 @@ const PostAddNew = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progressPercent =
+        const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log("Upload is " + progress + "% done");
-        setProgress(progressPercent);
+        console.log("Upload is " + progress + "% done");
         // trạng thái hình ảnh khi upload lên.
         switch (snapshot.state) {
           // trạng thái khi đang upload lên mà bị dừng
@@ -75,36 +68,21 @@ const PostAddNew = () => {
         // callback, nếu lỗi thì sẽ chạy vào đây
         console.log("Error");
       },
+
       () => {
         // Khi mà upload thành công vào trong firebase/storage thì nó sẽ có 1 đường đãn
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImage(downloadURL);
         });
       }
     );
   };
+
   const onSelectImage = (e) => {
     // console.log(e.target.files);
     const file = e.target.files[0];
-    console.log("onSelectImage ~ file", file);
     if (!file) return;
-    setValue("image_name", file.name);
-    handleUploadImage(file);
-  };
-  const handleDeleteImage = () => {
-    const storage = getStorage();
-    const imageRef = ref(storage, "images/" + getValues("image_name"));
-    deleteObject(imageRef)
-      .then(() => {
-        console.log("Remove image successfully");
-        setImage("");
-        setProgress(0);
-      })
-      .catch((error) => {
-        console.log("handleDeleteImage ~ error", error);
-        console.log("Can not delete image");
-      });
+    setValue("image", file);
   };
   return (
     <PostAddNewStyles>
@@ -132,13 +110,7 @@ const PostAddNew = () => {
         <div className="grid grid-cols-2 mb-10 gap-x-10">
           <Filed>
             <Label>Image</Label>
-            <ImageUpload
-              onChange={onSelectImage}
-              className="h-[250px]"
-              progress={progress}
-              image={image}
-              handleDeleteImage={handleDeleteImage}
-            ></ImageUpload>
+            <input type="file" name="image" onChange={onSelectImage} />
           </Filed>
           <Filed>
             <Label>Status</Label>

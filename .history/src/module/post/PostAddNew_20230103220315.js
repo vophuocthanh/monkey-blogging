@@ -25,7 +25,7 @@ import { db } from "../../firebase-app/firebase-config";
 const PostAddNewStyles = styled.div``;
 
 const PostAddNew = () => {
-  const { control, watch, setValue, handleSubmit, getValues } = useForm({
+  const { control, watch, setValue, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
@@ -89,22 +89,15 @@ const PostAddNew = () => {
     const file = e.target.files[0];
     console.log("onSelectImage ~ file", file);
     if (!file) return;
-    setValue("image_name", file.name);
+    setValue("image", file);
     handleUploadImage(file);
   };
   const handleDeleteImage = () => {
     const storage = getStorage();
-    const imageRef = ref(storage, "images/" + getValues("image_name"));
-    deleteObject(imageRef)
-      .then(() => {
-        console.log("Remove image successfully");
-        setImage("");
-        setProgress(0);
-      })
-      .catch((error) => {
-        console.log("handleDeleteImage ~ error", error);
-        console.log("Can not delete image");
-      });
+    const desertRef = ref(storage, "images/desert.jpg");
+    deleteObject(desertRef)
+      .then(() => {})
+      .catch((error) => {});
   };
   return (
     <PostAddNewStyles>
@@ -137,7 +130,6 @@ const PostAddNew = () => {
               className="h-[250px]"
               progress={progress}
               image={image}
-              handleDeleteImage={handleDeleteImage}
             ></ImageUpload>
           </Filed>
           <Filed>

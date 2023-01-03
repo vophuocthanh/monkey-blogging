@@ -98,11 +98,8 @@ const PostAddNew = () => {
     deleteObject(imageRef)
       .then(() => {
         console.log("Remove image successfully");
-        setImage("");
-        setProgress(0);
       })
       .catch((error) => {
-        console.log("handleDeleteImage ~ error", error);
         console.log("Can not delete image");
       });
   };
@@ -137,7 +134,6 @@ const PostAddNew = () => {
               className="h-[250px]"
               progress={progress}
               image={image}
-              handleDeleteImage={handleDeleteImage}
             ></ImageUpload>
           </Filed>
           <Filed>

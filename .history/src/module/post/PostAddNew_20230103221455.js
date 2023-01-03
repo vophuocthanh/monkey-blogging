@@ -99,7 +99,6 @@ const PostAddNew = () => {
       .then(() => {
         console.log("Remove image successfully");
         setImage("");
-        setProgress(0);
       })
       .catch((error) => {
         console.log("handleDeleteImage ~ error", error);

@@ -89,20 +89,23 @@ const PostAddNew = () => {
     const file = e.target.files[0];
     console.log("onSelectImage ~ file", file);
     if (!file) return;
-    setValue("image_name", file.name);
+    setValue("image_name", file);
     handleUploadImage(file);
   };
   const handleDeleteImage = () => {
     const storage = getStorage();
-    const imageRef = ref(storage, "images/" + getValues("image_name"));
+    const imageRef = ref(
+      storage,
+      "images/" +
+        getValues({
+          name: "delete",
+        })
+    );
     deleteObject(imageRef)
       .then(() => {
         console.log("Remove image successfully");
-        setImage("");
-        setProgress(0);
       })
       .catch((error) => {
-        console.log("handleDeleteImage ~ error", error);
         console.log("Can not delete image");
       });
   };
@@ -137,7 +140,6 @@ const PostAddNew = () => {
               className="h-[250px]"
               progress={progress}
               image={image}
-              handleDeleteImage={handleDeleteImage}
             ></ImageUpload>
           </Filed>
           <Filed>
