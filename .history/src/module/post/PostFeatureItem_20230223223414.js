@@ -75,9 +75,7 @@ const PostFeatureItem = ({ data }) => {
     fetchUser();
   }, [data.userId]);
   if (!data || !data.id) return null;
-  const date = data?.createdAt?.seconds
-    ? new Date(data?.createdAt?.seconds * 1000)
-    : new Date();
+  const date = new Date(data?.createdAt?.seconds * 1000);
   // console.log("PostFeatureItem ~ date", date);
   const formatDate = new Date(date).toLocaleDateString("vi-VI");
   return (

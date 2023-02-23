@@ -44,13 +44,8 @@ const PostAddNew = () => {
   });
   const watchStatus = watch("status");
   const watchHot = watch("hot");
-  const {
-    image,
-    handleResetUpload,
-    progress,
-    handleSelectImage,
-    handleDeleteImage,
-  } = useFirebaseImage(setValue, getValues);
+  const { image, setImage, progress, handleSelectImage, handleDeleteImage } =
+    useFirebaseImage(setValue, getValues);
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
   const [loading, setLoading] = useState(false);
@@ -66,13 +61,13 @@ const PostAddNew = () => {
       const cloneValues = { ...values };
       cloneValues.slug = slugify(values.slug || values.title, { lower: true });
       cloneValues.status = Number(values.status);
-      // console.log("addPostHandler ~ cloneValues", cloneValues);
+      console.log("addPostHandler ~ cloneValues", cloneValues);
       const colRef = collection(db, "posts");
       await addDoc(colRef, {
         ...cloneValues,
         image,
         userId: userInfo.uid,
-        createdAt: serverTimestamp(),
+        createdAt: serverTimestamp,
         // title: cloneValues.title,
         // slug: cloneValues.slug,
         // hot: cloneValues.hot,
@@ -89,7 +84,7 @@ const PostAddNew = () => {
         hot: false,
         image: "",
       });
-      handleResetUpload();
+      setImage("");
       setSelectCategory({});
     } catch (error) {
       setLoading(false);
@@ -116,10 +111,6 @@ const PostAddNew = () => {
       // console.log("getData ~ result", result);
     }
     getData();
-  }, []);
-
-  useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
   }, []);
   const handleClickOption = (item) => {
     setValue("categoryId", item.id);

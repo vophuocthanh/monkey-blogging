@@ -44,58 +44,42 @@ const PostAddNew = () => {
   });
   const watchStatus = watch("status");
   const watchHot = watch("hot");
-  const {
-    image,
-    handleResetUpload,
-    progress,
-    handleSelectImage,
-    handleDeleteImage,
-  } = useFirebaseImage(setValue, getValues);
+  const { image, progress, handleSelectImage, handleDeleteImage } =
+    useFirebaseImage(setValue, getValues);
   const [categories, setCategories] = useState([]);
   const [selectCategory, setSelectCategory] = useState("");
-  const [loading, setLoading] = useState(false);
-  // const watchCategory = .watch("category");
+  const [loading, setLoading] = useState([]);
+  // const watchCategory = watch("category");
   // console.log("PostAddNew ~ watchCategory", watchCategory);
   const addPostHandler = async (values) => {
+    // Chức năng add post
     // console.log("addPostHandler ~ values", values);
-    // chức năng khi bấm submit có loading
-    setLoading(true);
-    try {
-      // Chức năng add post
-      // console.log("addPostHandler ~ values", values);
-      const cloneValues = { ...values };
-      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
-      cloneValues.status = Number(values.status);
-      // console.log("addPostHandler ~ cloneValues", cloneValues);
-      const colRef = collection(db, "posts");
-      await addDoc(colRef, {
-        ...cloneValues,
-        image,
-        userId: userInfo.uid,
-        createdAt: serverTimestamp(),
-        // title: cloneValues.title,
-        // slug: cloneValues.slug,
-        // hot: cloneValues.hot,
-        // status: cloneValues.status,
-        // categoryId: cloneValues.categoryId,
-      });
-      toast.success(" Create new post successfully");
-      // console.log("addPostHandler ~ cloneValues", cloneValues);
-      reset({
-        title: "",
-        slug: "",
-        status: 2,
-        categoryId: "",
-        hot: false,
-        image: "",
-      });
-      handleResetUpload();
-      setSelectCategory({});
-    } catch (error) {
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+    const cloneValues = { ...values };
+    cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+    cloneValues.status = Number(values.status);
+    const colRef = collection(db, "posts");
+    await addDoc(colRef, {
+      ...cloneValues,
+      image,
+      userId: userInfo.uid,
+      createdAt: serverTimestamp,
+      // title: cloneValues.title,
+      // slug: cloneValues.slug,
+      // hot: cloneValues.hot,
+      // status: cloneValues.status,
+      // categoryId: cloneValues.categoryId,
+    });
+    toast.success(" Create new post successfully");
+    // console.log("addPostHandler ~ cloneValues", cloneValues);
+    reset({
+      title: "",
+      slug: "",
+      status: 2,
+      categoryId: "",
+      hot: false,
+      image: "",
+    });
+    setSelectCategory({});
   };
 
   useEffect(() => {
@@ -116,10 +100,6 @@ const PostAddNew = () => {
       // console.log("getData ~ result", result);
     }
     getData();
-  }, []);
-
-  useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
   }, []);
   const handleClickOption = (item) => {
     setValue("categoryId", item.id);
@@ -229,12 +209,7 @@ const PostAddNew = () => {
             </div>
           </Filed>
         </div>
-        <Button
-          type="submit"
-          className="mx-auto w-[250px]"
-          isLoading={loading}
-          disabled={loading}
-        >
+        <Button type="submit" className="mx-auto">
           Add new post
         </Button>
       </form>

@@ -1,6 +1,5 @@
 import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import slugify from "slugify";
 import styled from "styled-components";
 import { db } from "../../firebase-app/firebase-config";
 import PostCategory from "./PostCategory";
@@ -75,11 +74,6 @@ const PostFeatureItem = ({ data }) => {
     fetchUser();
   }, [data.userId]);
   if (!data || !data.id) return null;
-  const date = data?.createdAt?.seconds
-    ? new Date(data?.createdAt?.seconds * 1000)
-    : new Date();
-  // console.log("PostFeatureItem ~ date", date);
-  const formatDate = new Date(date).toLocaleDateString("vi-VI");
   return (
     <PostFeatureItemStyles>
       <PostImage url={data.image}></PostImage>
@@ -87,16 +81,10 @@ const PostFeatureItem = ({ data }) => {
       <div className="post-content">
         <div className="post-top">
           <PostCategory>Kiến thức</PostCategory>
-          {/* {category?.name && <PostCategory to={category.slug}>{category.name}</PostCategory>} */}
-          <PostMeta
-            to={slugify(user?.fullname || "", { lower: true })}
-            authorName={user?.fullname}
-            date={formatDate}
-          ></PostMeta>
+          {/* {category?.name && <PostCategory>{category.name}</PostCategory>} */}
+          <PostMeta authorName={user?.name}></PostMeta>
         </div>
-        <PostTitle to={data.slug} size="big">
-          {data.title}
-        </PostTitle>
+        <PostTitle size="big">{data.title}</PostTitle>
       </div>
     </PostFeatureItemStyles>
   );

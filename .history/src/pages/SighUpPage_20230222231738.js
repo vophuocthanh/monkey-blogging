@@ -13,7 +13,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "../components/input/InputPasswordToggle";
-import slugify from "slugify";
 
 // Làm validation cho form
 const schema = yup.object({
@@ -57,7 +56,6 @@ const SighUpPage = () => {
       fullname: values.fullname,
       email: values.email,
       password: values.password,
-      username: slugify(values.fullname, { lower: true }),
     });
     // await addDoc(colRef, {
     //   fullname: values.fullname,

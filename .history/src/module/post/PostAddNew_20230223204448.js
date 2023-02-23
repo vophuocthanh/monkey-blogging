@@ -117,10 +117,6 @@ const PostAddNew = () => {
     }
     getData();
   }, []);
-
-  useEffect(() => {
-    document.title = "Monkey Blogging - Add new post";
-  }, []);
   const handleClickOption = (item) => {
     setValue("categoryId", item.id);
     setSelectCategory(item); // nó là 1 object(id,name,slug)
