@@ -10,8 +10,7 @@ import { useState } from "react";
 export default function useFirebaseImage(
   setValue,
   getValues,
-  imageName = null,
-  cb = null
+  imageName = null
 ) {
   const [image, setImage] = useState("");
   const [progress, setProgress] = useState(0);
@@ -73,7 +72,6 @@ export default function useFirebaseImage(
         console.log("Remove image successfully");
         setImage("");
         setProgress(0);
-        cb && cb();
       })
       .catch((error) => {
         console.log("handleDeleteImage ~ error", error);
@@ -87,7 +85,6 @@ export default function useFirebaseImage(
   return {
     image,
     progress,
-    setImage,
     handleResetUpload,
     handleSelectImage,
     handleDeleteImage,

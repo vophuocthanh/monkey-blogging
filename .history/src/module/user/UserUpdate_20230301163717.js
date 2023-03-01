@@ -35,9 +35,14 @@ const UserUpdate = () => {
   const watchRole = watch("role");
   const imageUrl = getValues("avatar");
   const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
-  const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
-  const { image, setImage, progress, handleSelectImage, handleDeleteImage } =
-    useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
+  const image_name = imageRegex?.length > 0 ? imageRegex[1] : "";
+  const {
+    image,
+    handleResetUpload,
+    progress,
+    handleSelectImage,
+    handleDeleteImage,
+  } = useFirebaseImage(setValue, getValues, image_name, deleteAvatar);
   const handleUpdateUser = async (values) => {
     if (!isValid) return;
     try {
@@ -58,9 +63,6 @@ const UserUpdate = () => {
       avatar: "",
     });
   }
-  useEffect(() => {
-    setImage(imageUrl);
-  }, [imageUrl, setImage]);
   useEffect(() => {
     document.title = "Monkey Blogging - Update user";
   }, []);

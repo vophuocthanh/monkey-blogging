@@ -11,7 +11,7 @@ export default function useFirebaseImage(
   setValue,
   getValues,
   imageName = null,
-  cb = null
+  cb
 ) {
   const [image, setImage] = useState("");
   const [progress, setProgress] = useState(0);
@@ -87,7 +87,6 @@ export default function useFirebaseImage(
   return {
     image,
     progress,
-    setImage,
     handleResetUpload,
     handleSelectImage,
     handleDeleteImage,

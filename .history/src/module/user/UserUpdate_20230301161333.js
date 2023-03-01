@@ -31,20 +31,12 @@ const UserUpdate = () => {
 
   const [params] = useSearchParams();
   const userId = params.get("id");
-  const watchStatus = watch("status");
-  const watchRole = watch("role");
-  const imageUrl = getValues("avatar");
-  const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
-  const imageName = imageRegex?.length > 0 ? imageRegex[1] : "";
-  const { image, setImage, progress, handleSelectImage, handleDeleteImage } =
-    useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
   const handleUpdateUser = async (values) => {
     if (!isValid) return;
     try {
       const colRef = doc(db, "users", userId);
       await updateDoc(colRef, {
         ...values,
-        avatar: image,
       });
       toast.success("Update user information successfully!");
     } catch (error) {
@@ -52,15 +44,10 @@ const UserUpdate = () => {
       toast.error("Update user failed!");
     }
   };
-  async function deleteAvatar() {
-    const colRef = doc(db, "users", userId);
-    await updateDoc(colRef, {
-      avatar: "",
-    });
-  }
-  useEffect(() => {
-    setImage(imageUrl);
-  }, [imageUrl, setImage]);
+  const watchStatus = watch("status");
+  const watchRole = watch("role");
+  const imageUrl = getValues("avatar");
+  const image_name = /%2F(\S+)\?/gm.exec(imageUrl)[1];
   useEffect(() => {
     document.title = "Monkey Blogging - Update user";
   }, []);
@@ -73,6 +60,13 @@ const UserUpdate = () => {
     }
     fetchData();
   }, [userId, reset]);
+  const {
+    image,
+    handleResetUpload,
+    progress,
+    handleSelectImage,
+    handleDeleteImage,
+  } = useFirebaseImage(setValue, getValues, image_name);
   if (!userId) return null;
   return (
     <div>
@@ -87,7 +81,7 @@ const UserUpdate = () => {
             onChange={handleSelectImage}
             handleDeleteImage={handleDeleteImage}
             progress={progress}
-            image={image}
+            image={image || imageUrl}
           ></ImageUpload>
         </div>
         <div className="form-layout">
