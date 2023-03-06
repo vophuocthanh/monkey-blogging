@@ -40,6 +40,7 @@ const UserUpdate = () => {
   const { image, setImage, progress, handleSelectImage, handleDeleteImage } =
     useFirebaseImage(setValue, getValues, imageName, deleteAvatar);
   const handleUpdateUser = async (values) => {
+    console.log("handleUpdateUser ~ values:", values);
     if (!isValid) return;
     try {
       const colRef = doc(db, "users", userId);

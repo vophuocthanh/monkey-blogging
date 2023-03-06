@@ -16,6 +16,7 @@ import parse from "html-react-parser";
 import AuthorBox from "../components/author/AuthorBox";
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
+
   .post {
     &-header {
       display: flex;

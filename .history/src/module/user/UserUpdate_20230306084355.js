@@ -192,7 +192,7 @@ const UserUpdate = () => {
         <div className="form-layout">
           <Filed>
             <Label>Description</Label>
-            <Textarea name="description" control={control}></Textarea>
+            <Textarea></Textarea>
           </Filed>
         </div>
         <Button

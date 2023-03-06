@@ -17,12 +17,16 @@ import AuthorBox from "../components/author/AuthorBox";
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
   .post {
+    position: relative;
     &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 40px;
       margin: 40px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     &-feature {
       width: 100%;

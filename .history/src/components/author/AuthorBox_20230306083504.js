@@ -1,8 +1,10 @@
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { db } from "../../firebase-app/firebase-config";
 
-const AuthorBox = ({ userId = "" }) => {
+const AuthorBox = ({ userId = {} }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
     async function fetchUserData() {
@@ -18,11 +20,14 @@ const AuthorBox = ({ userId = "" }) => {
   return (
     <div className="author">
       <div className="author-image">
-        <img src={user?.avatar} alt="" />
+        <img src={user.vâtr} alt="" />
       </div>
       <div className="author-content">
-        <h3 className="author-name">{user?.fullname}</h3>
-        <p className="author-desc">{user?.description}</p>
+        <h3 className="author-name">{user.fullname}</h3>
+        <p className="author-desc">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur
+          ducimus est accusamus illum incidunt quia
+        </p>
       </div>
     </div>
   );

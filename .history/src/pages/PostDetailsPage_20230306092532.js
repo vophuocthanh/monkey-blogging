@@ -23,6 +23,9 @@ const PostDetailsPageStyles = styled.div`
       align-items: center;
       gap: 40px;
       margin: 40px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     &-feature {
       width: 100%;

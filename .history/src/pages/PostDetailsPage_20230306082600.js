@@ -118,6 +118,7 @@ const PostDetailsPage = () => {
   }, [slug]);
   if (!slug || !postInfo.title) return <PageNotFound></PageNotFound>;
   const { user } = postInfo;
+  console.log("PostDetailsPage ~ user:", user);
   return (
     <PostDetailsPageStyles>
       <Layout>
@@ -138,7 +139,7 @@ const PostDetailsPage = () => {
           </div>
           <div className="post-content">
             <div className="entry-content">{parse(postInfo.content || "")}</div>
-            <AuthorBox userId={user.id}></AuthorBox>
+            {/* <AuthorBox userId={user.id}></AuthorBox> */}
           </div>
           <div className="post-related">
             <Heading>Bài viết liên quan</Heading>

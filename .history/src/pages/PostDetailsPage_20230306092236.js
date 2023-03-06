@@ -17,6 +17,7 @@ import AuthorBox from "../components/author/AuthorBox";
 const PostDetailsPageStyles = styled.div`
   padding-bottom: 100px;
   .post {
+    position: relative;
     &-header {
       display: flex;
       justify-content: space-between;

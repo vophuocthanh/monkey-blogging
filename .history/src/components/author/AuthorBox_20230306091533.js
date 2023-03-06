@@ -1,8 +1,10 @@
 import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { db } from "../../firebase-app/firebase-config";
 
-const AuthorBox = ({ userId = "" }) => {
+const AuthorBox = ({ userId = {} }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
     async function fetchUserData() {

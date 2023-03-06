@@ -1,6 +1,6 @@
+import { db } from "firebase-app/firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../../firebase-app/firebase-config";
 
 const AuthorBox = ({ userId = "" }) => {
   const [user, setUser] = useState({});

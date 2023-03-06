@@ -22,7 +22,12 @@ const AuthorBox = ({ userId = "" }) => {
       </div>
       <div className="author-content">
         <h3 className="author-name">{user?.fullname}</h3>
-        <p className="author-desc">{user?.description}</p>
+        <p className="author-desc">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi,
+          distinctio ab consectetur ea similique doloribus nisi sed possimus,
+          excepturi voluptates totam deserunt facilis ipsam magnam iste
+          repudiandae sit, architecto officia!
+        </p>
       </div>
     </div>
   );
