@@ -35,12 +35,10 @@ const PostNewestLarge = ({ data }) => {
   if (!data.id) return null;
   return (
     <PostNewestLargeStyles>
-      <PostImage url={data?.image} alt="" to={data?.slug}></PostImage>
+      <PostImage url={data?.image} alt=""></PostImage>
 
-      <PostCategory to={data?.category.slug}>Knowledge</PostCategory>
-      <PostTitle to={data?.slug} size="big">
-        {data.title}
-      </PostTitle>
+      <PostCategory>Knowledge</PostCategory>
+      <PostTitle size="big">{data.title}</PostTitle>
       <PostMeta
         to={slugify(data.user?.username || "", { lower: true })}
         authorName={data.user?.fullname}

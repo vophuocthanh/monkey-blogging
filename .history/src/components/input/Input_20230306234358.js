@@ -54,7 +54,7 @@ const Input = ({ name = "", type = "text", children, control, ...props }) => {
 };
 
 Input.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   type: PropTypes.string,
   children: PropTypes.any,
   control: PropTypes.any.isRequired,

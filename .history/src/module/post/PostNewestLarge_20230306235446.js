@@ -1,5 +1,4 @@
 import React from "react";
-import slugify from "slugify";
 import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
@@ -28,24 +27,19 @@ const PostNewestLargeStyles = styled.div`
 `;
 
 const PostNewestLarge = ({ data }) => {
-  const date = data?.createdAt?.seconds
-    ? new Date(data?.createdAt?.seconds * 1000)
-    : new Date();
-  const formatDate = new Date(date).toLocaleDateString("vi-VI");
-  if (!data.id) return null;
+  console.log("PostNewestLarge ~ data:", data);
   return (
     <PostNewestLargeStyles>
-      <PostImage url={data?.image} alt="" to={data?.slug}></PostImage>
+      <PostImage
+        url="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2294&q=80"
+        alt=""
+      ></PostImage>
 
-      <PostCategory to={data?.category.slug}>Knowledge</PostCategory>
-      <PostTitle to={data?.slug} size="big">
-        {data.title}
+      <PostCategory>Knowledge</PostCategory>
+      <PostTitle size="big">
+        The complete guide to learn new languages for beginners
       </PostTitle>
-      <PostMeta
-        to={slugify(data.user?.username || "", { lower: true })}
-        authorName={data.user?.fullname}
-        date={formatDate}
-      ></PostMeta>
+      <PostMeta></PostMeta>
     </PostNewestLargeStyles>
   );
 };

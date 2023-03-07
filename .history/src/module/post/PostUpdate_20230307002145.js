@@ -119,7 +119,6 @@ const PostUpdate = () => {
     values.status = Number(values.status);
     await updateDoc(docRef, {
       ...values,
-      image,
       content,
     });
     toast.success("Update post successfully!");

@@ -14,7 +14,6 @@ import { db } from "../../firebase-app/firebase-config";
 import PostItem from "../post/PostItem";
 import PostNewestItem from "../post/PostNewestItem";
 import PostNewestLarge from "../post/PostNewestLarge";
-import { v4 } from "uuid";
 
 const HomeNewestStyles = styled.div`
   .layout {
@@ -62,10 +61,14 @@ const HomeNewest = () => {
           <PostNewestLarge data={first}></PostNewestLarge>
           <div className="sidebar">
             {other.length > 0 &&
-              other.map((item) => (
-                <PostNewestItem key={v4()} data={item}></PostNewestItem>
-              ))}
+              other.map((item) => <PostNewestItem></PostNewestItem>)}
           </div>
+        </div>
+        <div className="grid-layout grid-layout--primary">
+          <PostItem></PostItem>
+          <PostItem></PostItem>
+          <PostItem></PostItem>
+          <PostItem></PostItem>
         </div>
       </div>
     </HomeNewestStyles>

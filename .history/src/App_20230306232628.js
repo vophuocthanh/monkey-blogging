@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
+import CategoryAddNew from "./module/category/CategoryAddNew";
+import CategoryManage from "./module/category/CategoryManage";
+import CategoryUpdate from "./module/category/CategoryUpdate";
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const CategoryPage = React.lazy(() => import("./pages/CategoryPage"));
 const DashboardPage = React.lazy(() => import("./pages/DashboardPage"));
@@ -20,12 +23,6 @@ const DashboardLayout = React.lazy(() =>
 );
 const CategoryUpdate = React.lazy(() =>
   import("./module/category/CategoryUpdate")
-);
-const CategoryManage = React.lazy(() =>
-  import("./module/category/CategoryManage")
-);
-const CategoryAddNew = React.lazy(() =>
-  import("./module/category/CategoryAddNew")
 );
 
 function App() {

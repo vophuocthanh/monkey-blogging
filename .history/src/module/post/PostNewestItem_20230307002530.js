@@ -55,11 +55,11 @@ const PostNewestItem = ({ data }) => {
   if (!data.id) return null;
   return (
     <PostNewestItemStyles>
-      <PostImage url={data.image} alt="" to={data?.slug}></PostImage>
+      <PostImage url={data.image} alt="" to="/"></PostImage>
 
       <div className="post-content">
         <PostCategory type="secondary">Knowledge</PostCategory>
-        <PostTitle to={data?.slug}>{data?.title}</PostTitle>
+        <PostTitle>{data?.title}</PostTitle>
         <PostMeta
           to={slugify(data.user?.username || "", { lower: true })}
           authorName={data.user?.fullname}

@@ -1,32 +1,24 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context";
+import CategoryAddNew from "./module/category/CategoryAddNew";
+import CategoryManage from "./module/category/CategoryManage";
+import CategoryUpdate from "./module/category/CategoryUpdate";
+import DashboardLayout from "./module/dashboard/DashboardLayout";
+import PostAddNew from "./module/post/PostAddNew";
+import PostManage from "./module/post/PostManage";
+import PostUpdate from "./module/post/PostUpdate";
+import UserAddNew from "./module/user/UserAddNew";
+import UserManage from "./module/user/UserManage";
+import UserProfile from "./module/user/UserProfile";
+import UserUpdate from "./module/user/UserUpdate";
+import CategoryPage from "./pages/CategoryPage";
+import DashboardPage from "./pages/DashboardPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import PostDetailsPage from "./pages/PostDetailsPage";
+import SighUpPage from "./pages/SighUpPage";
+import SignInPage from "./pages/SignInPage";
 const HomePage = React.lazy(() => import("./pages/HomePage"));
-const CategoryPage = React.lazy(() => import("./pages/CategoryPage"));
-const DashboardPage = React.lazy(() => import("./pages/DashboardPage"));
-const SignInPage = React.lazy(() => import("./pages/SignInPage"));
-const SighUpPage = React.lazy(() => import("./pages/SighUpPage"));
-const PostDetailsPage = React.lazy(() => import("./pages/PostDetailsPage"));
-const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
-const UserUpdate = React.lazy(() => import("./module/user/UserUpdate"));
-const UserProfile = React.lazy(() => import("./module/user/UserProfile"));
-const UserManage = React.lazy(() => import("./module/user/UserManage"));
-const UserAddNew = React.lazy(() => import("./module/user/UserAddNew"));
-const PostUpdate = React.lazy(() => import("./module/post/PostUpdate"));
-const PostManage = React.lazy(() => import("./module/post/PostManage"));
-const PostAddNew = React.lazy(() => import("./module/post/PostAddNew"));
-const DashboardLayout = React.lazy(() =>
-  import("./module/dashboard/DashboardLayout")
-);
-const CategoryUpdate = React.lazy(() =>
-  import("./module/category/CategoryUpdate")
-);
-const CategoryManage = React.lazy(() =>
-  import("./module/category/CategoryManage")
-);
-const CategoryAddNew = React.lazy(() =>
-  import("./module/category/CategoryAddNew")
-);
 
 function App() {
   return (

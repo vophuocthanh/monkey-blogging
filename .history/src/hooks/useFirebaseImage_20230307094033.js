@@ -55,6 +55,7 @@ export default function useFirebaseImage(
     );
   };
   const handleSelectImage = (e) => {
+    // console.log(e.target.files);
     const file = e.target.files[0];
     if (!file) return;
     setValue("image_name", file.name);
@@ -76,7 +77,6 @@ export default function useFirebaseImage(
       .catch((error) => {
         console.log("handleDeleteImage ~ error", error);
         console.log("Can not delete image");
-        setImage("");
       });
   };
   const handleResetUpload = () => {
