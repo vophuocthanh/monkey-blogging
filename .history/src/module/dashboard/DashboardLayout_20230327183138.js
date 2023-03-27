@@ -253,7 +253,7 @@ const HomeStyles = styled.span`
 
 const MenuStyles = styled.button`
   position: fixed;
-  top: 1.3rem;
+  top: 1.3em;
   left: 1em;
   padding: calc(0.5em + 0.5vw);
   border-radius: 100%;

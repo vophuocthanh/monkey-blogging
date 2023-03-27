@@ -253,7 +253,7 @@ const HomeStyles = styled.span`
 
 const MenuStyles = styled.button`
   position: fixed;
-  top: 1.3rem;
+  top: 1em;
   left: 1em;
   padding: calc(0.5em + 0.5vw);
   border-radius: 100%;
@@ -261,7 +261,6 @@ const MenuStyles = styled.button`
   z-index: 100;
   display: none;
   align-items: center;
-  font-size: 20px;
   i {
     font-weight: 600;
     font-size: calc(1em + 1vw);
