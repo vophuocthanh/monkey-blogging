@@ -41,7 +41,9 @@ a {
   }
   @media screen and (max-width: 1023.98px) {
     grid-auto-flow: row;
-    // margin-left: 20px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
     scroll-snap-type: x mandatory;
     overflow-x: auto;
   }
