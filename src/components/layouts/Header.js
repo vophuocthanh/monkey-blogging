@@ -1,85 +1,98 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import styled, { css } from "styled-components";
-import { useAuth } from "../../contexts/auth-context";
-import Button from "../button/Button";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { useAuth } from '../../contexts/auth-context';
+import Button from '../button/Button';
+import {
+  Experimental_CssVarsProvider as CssVarsProvider,
+  experimental_extendTheme as extendTheme,
+  useColorScheme,
+} from '@mui/material/styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import Box from '@mui/material/Box';
 const menuLinks = [
   {
-    url: "/",
-    title: "Home",
+    url: '/',
+    title: 'Home',
     icon: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-6 w-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
         />
       </svg>
     ),
   },
   {
-    url: "/blog",
-    title: "Blog",
+    url: '/blog',
+    title: 'Blog',
     icon: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-6 w-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
         />
       </svg>
     ),
   },
   {
-    url: "/contact",
-    title: "Contact",
+    url: '/contact',
+    title: 'Contact',
     icon: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-6 w-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z'
         />
       </svg>
     ),
   },
   {
-    url: "/dashboard",
-    title: "Dashboard",
+    url: '/dashboard',
+    title: 'Dashboard',
     icon: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-6 w-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01'
         />
       </svg>
     ),
@@ -88,21 +101,21 @@ const menuLinks = [
 
 const logInLinks = [
   {
-    url: "/sign-in",
-    title: "Log in",
+    url: '/sign-in',
+    title: 'Log in',
     icon: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
+        xmlns='http://www.w3.org/2000/svg'
+        class='h-6 w-6'
+        fill='none'
+        viewBox='0 0 24 24'
+        stroke='currentColor'
+        stroke-width='2'
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1'
         />
       </svg>
     ),
@@ -226,15 +239,59 @@ const HeaderStyles = styled.header`
     }
   }
 `;
+export function ModeSelect() {
+  const { mode, setMode } = useColorScheme();
+
+  const handleChange = (event) => {
+    const selectMode = event.target.value;
+    console.log(selectMode);
+    setMode(selectMode);
+  };
+
+  return (
+    <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
+      <InputLabel id='label-select-dark-light-mode' disabled='false'>
+        Mode
+      </InputLabel>
+      <Select
+        labelId='label-select-dark-light-mode'
+        id='select-dark-light-mode'
+        value={mode}
+        label='Mode'
+        onChange={handleChange}
+      >
+        <MenuItem value='light'>
+          <div
+            className=''
+            style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <LightModeIcon fontSize='small'></LightModeIcon> Light
+          </div>
+        </MenuItem>
+        <MenuItem value='dark'>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <DarkModeOutlinedIcon fontSize='small'></DarkModeOutlinedIcon> Dark
+          </Box>
+        </MenuItem>
+        <MenuItem value='system'>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <SettingsBrightnessIcon fontSize='small'></SettingsBrightnessIcon>{' '}
+            System
+          </Box>
+        </MenuItem>
+      </Select>
+    </FormControl>
+  );
+}
 const Header = () => {
   const { userInfo } = useAuth();
   const [show, setShow] = useState(false);
   return (
     <HeaderStyles show={show}>
-      <div className="container">
-        <div className="header-main">
-          <button className="sidebarBtn" onClick={() => setShow(true)}>
-            <i class="bx bx-menu"></i>
+      <div className='container'>
+        <div className='header-main'>
+          <button className='sidebarBtn' onClick={() => setShow(true)}>
+            <i class='bx bx-menu'></i>
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -250,36 +307,36 @@ const Header = () => {
               />
             </svg> */}
           </button>
-          <NavLink to="/">
-            <img src="./logo.png" alt="monkey-blogging" className="logo" />
+          <NavLink to='/'>
+            <img src='./logo.png' alt='monkey-blogging' className='logo' />
           </NavLink>
-          <ul className="menu">
+          <ul className='menu'>
             {menuLinks.slice(0, 3).map((item) => (
-              <li className="menu-item" key={item.title}>
-                <NavLink to={item.url} className="menu-link">
+              <li className='menu-item' key={item.title}>
+                <NavLink to={item.url} className='menu-link'>
                   {item.title}
                 </NavLink>
               </li>
             ))}
           </ul>
-          <ul className="sidebar">
+          <ul className='sidebar'>
             <div>
-              <div className="flex items-center justify-between p-5">
-                <div className="flex items-center gap-x-4">
-                  <NavLink to="/">
+              <div className='flex items-center justify-between p-5'>
+                <div className='flex items-center gap-x-4'>
+                  <NavLink to='/'>
                     <img
-                      srcSet="/logo.png 2x"
-                      alt="monkey-blogging"
-                      className="logo-sidebar"
+                      srcSet='/logo.png 2x'
+                      alt='monkey-blogging'
+                      className='logo-sidebar'
                     />
                   </NavLink>
-                  <h2 className="font-semibold">Monkey Blogging</h2>
+                  <h2 className='font-semibold'>Monkey Blogging</h2>
                 </div>
                 <span
-                  className="text-3xl font-semibold cursor-pointer"
+                  className='text-3xl font-semibold cursor-pointer'
                   onClick={() => setShow(false)}
                 >
-                  <i class="bx bx-chevron-left"></i>
+                  <i class='bx bx-chevron-left'></i>
                   {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -296,60 +353,60 @@ const Header = () => {
                   </svg> */}
                 </span>
               </div>
-              <div className="px-5">
-                <div className="search">
+              <div className='px-5'>
+                <div className='search'>
                   <input
-                    type="text"
-                    className="search-input"
-                    placeholder="Search posts..."
+                    type='text'
+                    className='search-input'
+                    placeholder='Search posts...'
                   />
-                  <span className="search-icon">
+                  <span className='search-icon'>
                     <svg
-                      width="18"
-                      height="17"
-                      viewBox="0 0 18 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                      width='18'
+                      height='17'
+                      viewBox='0 0 18 17'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'
                     >
                       <ellipse
-                        cx="7.66669"
-                        cy="7.05161"
-                        rx="6.66669"
-                        ry="6.05161"
-                        stroke="#999999"
-                        strokeWidth="1.5"
+                        cx='7.66669'
+                        cy='7.05161'
+                        rx='6.66669'
+                        ry='6.05161'
+                        stroke='#999999'
+                        strokeWidth='1.5'
                       />
                       <path
-                        d="M17.0001 15.5237L15.2223 13.9099L14.3334 13.103L12.5557 11.4893"
-                        stroke="#999999"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
+                        d='M17.0001 15.5237L15.2223 13.9099L14.3334 13.103L12.5557 11.4893'
+                        stroke='#999999'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
                       />
                       <path
-                        d="M11.6665 12.2964C12.9671 12.1544 13.3706 11.8067 13.4443 10.6826"
-                        stroke="#999999"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
+                        d='M11.6665 12.2964C12.9671 12.1544 13.3706 11.8067 13.4443 10.6826'
+                        stroke='#999999'
+                        strokeWidth='1.5'
+                        strokeLinecap='round'
                       />
                     </svg>
                   </span>
                 </div>
               </div>
-              <div className="mt-5">
+              <div className='mt-5'>
                 {userInfo &&
                   menuLinks.map((item) => (
                     <li
-                      className="flex items-center justify-between link"
+                      className='flex items-center justify-between link'
                       key={item.title}
                     >
-                      <div className="flex items-center gap-x-4">
+                      <div className='flex items-center gap-x-4'>
                         <span>{item.icon}</span>
-                        <NavLink to={item.url} className="menu-link">
+                        <NavLink to={item.url} className='menu-link'>
                           {item.title}
                         </NavLink>
                       </div>
                       <span>
-                        <i class="bx bx-chevron-down"></i>
+                        <i class='bx bx-chevron-down'></i>
                       </span>
                     </li>
                   ))}
@@ -361,75 +418,79 @@ const Header = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center p-5 about gap-x-4">
-              <div className="w-10 h-10 rounded-full">
+            <div className='flex items-center p-5 about gap-x-4'>
+              <div className='w-10 h-10 rounded-full'>
                 <img
-                  src="https://antimatter.vn/wp-content/uploads/2022/12/hinh-nen-songoku-4k-2k.jpg"
-                  alt=""
-                  className="object-cover w-full h-full rounded-full"
+                  src='https://antimatter.vn/wp-content/uploads/2022/12/hinh-nen-songoku-4k-2k.jpg'
+                  alt=''
+                  className='object-cover w-full h-full rounded-full'
                 />
               </div>
               <div>
-                <h2 className="font-semibold">Võ Phước Thạnh</h2>
-                <span className="text-xs text-gray-600">
+                <h2 className='font-semibold'>Võ Phước Thạnh</h2>
+                <span className='text-xs text-gray-600'>
                   phuocthanh2k03@gmail.com
                 </span>
               </div>
             </div>
           </ul>
-          <div className="search">
+          {/* Light/Dark */}
+          <div className='flex ml-auto'>
+            <ModeSelect></ModeSelect>
+          </div>
+          <div className='search'>
             <input
-              type="text"
-              className="search-input"
-              placeholder="Search posts..."
+              type='text'
+              className='search-input'
+              placeholder='Search posts...'
             />
-            <span className="search-icon">
+            <span className='search-icon'>
               <svg
-                width="18"
-                height="17"
-                viewBox="0 0 18 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                width='18'
+                height='17'
+                viewBox='0 0 18 17'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
               >
                 <ellipse
-                  cx="7.66669"
-                  cy="7.05161"
-                  rx="6.66669"
-                  ry="6.05161"
-                  stroke="#999999"
-                  strokeWidth="1.5"
+                  cx='7.66669'
+                  cy='7.05161'
+                  rx='6.66669'
+                  ry='6.05161'
+                  stroke='#999999'
+                  strokeWidth='1.5'
                 />
                 <path
-                  d="M17.0001 15.5237L15.2223 13.9099L14.3334 13.103L12.5557 11.4893"
-                  stroke="#999999"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
+                  d='M17.0001 15.5237L15.2223 13.9099L14.3334 13.103L12.5557 11.4893'
+                  stroke='#999999'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
                 />
                 <path
-                  d="M11.6665 12.2964C12.9671 12.1544 13.3706 11.8067 13.4443 10.6826"
-                  stroke="#999999"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
+                  d='M11.6665 12.2964C12.9671 12.1544 13.3706 11.8067 13.4443 10.6826'
+                  stroke='#999999'
+                  strokeWidth='1.5'
+                  strokeLinecap='round'
                 />
               </svg>
             </span>
           </div>
           {!userInfo ? (
             <Button
-              type="button"
-              height="56px"
-              className="header-button"
-              to="/sign-in"
+              type='button'
+              height='56px'
+              className='header-button'
+              to='/sign-in'
             >
               Login
             </Button>
           ) : (
-            <div className="header-auth">
+            <div className='header-auth'>
               <Button
-                type="button"
-                height="56px"
-                className="header-button"
-                to="/dashboard"
+                type='button'
+                height='56px'
+                className='header-button'
+                to='/dashboard'
               >
                 Dashboard
               </Button>
@@ -445,15 +506,15 @@ export default Header;
 
 const LogInItem = () => {
   return logInLinks.map((item) => (
-    <li className="flex items-center justify-between link" key={item.title}>
-      <div className="flex items-center gap-x-4">
+    <li className='flex items-center justify-between link' key={item.title}>
+      <div className='flex items-center gap-x-4'>
         <span>{item.icon}</span>
-        <NavLink to={item.url} className="menu-link">
+        <NavLink to={item.url} className='menu-link'>
           {item.title}
         </NavLink>
       </div>
       <span>
-        <i class="bx bx-chevron-down"></i>
+        <i class='bx bx-chevron-down'></i>
       </span>
     </li>
   ));
@@ -461,15 +522,15 @@ const LogInItem = () => {
 
 const MenuLinks = () => {
   return menuLinks.slice(0, 3).map((item) => (
-    <li className="flex items-center justify-between link" key={item.title}>
-      <div className="flex items-center gap-x-4">
+    <li className='flex items-center justify-between link' key={item.title}>
+      <div className='flex items-center gap-x-4'>
         <span>{item.icon}</span>
-        <NavLink to={item.url} className="menu-link">
+        <NavLink to={item.url} className='menu-link'>
           {item.title}
         </NavLink>
       </div>
       <span>
-        <i class="bx bx-chevron-down"></i>
+        <i class='bx bx-chevron-down'></i>
       </span>
     </li>
   ));
