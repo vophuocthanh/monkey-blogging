@@ -435,7 +435,7 @@ const Header = () => {
             </div>
           </ul>
           {/* Light/Dark */}
-          <div className='flex ml-auto'>
+          <div className='max-[500px]:hidden lg:flex lg:ml-auto'>
             <ModeSelect></ModeSelect>
           </div>
           <div className='search'>
